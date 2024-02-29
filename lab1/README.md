@@ -1,4 +1,4 @@
-# Лабораторная работа 1
+ # Лабораторная работа 1
 
 **Название:** "Разработка драйверов символьных устройств"
 
@@ -10,12 +10,23 @@
 
 ## Инструкция по сборке
 
-...
+1. cd <source_folder>
+2. make all
+3. make load
+   
+<img width="500" alt="image" src="https://github.com/DeadInsideDora/IO/assets/148919379/9bc50308-4511-46df-816a-a80be93ecacd">
 
 ## Инструкция пользователя
 
-...
+1. write test programm with writing and reading in  `dev/vart8`
+2. execute test programm with sudo  
+3. input text
 
 ## Примеры использования
 
-...
+Запустим несколько раз тестовую программу и введем текст, содержащий числа:
+
+
+
+
+

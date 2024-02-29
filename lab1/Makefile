@@ -15,7 +15,7 @@ clean-module:
 	sudo make -C /lib/modules/$(shell uname -r)/build M="$(PWD)" clean
 
 clean-client:
-	rm client
+	rm test
 
 clean:
 	make clean-module

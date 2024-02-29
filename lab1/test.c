@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
 
     if (fgets(line, LINE_SIZE, stdin) == NULL) {
         printf("Error reading input.\n");
-        return EXIT_FAILURE;
+        return -1;
     }
 
     if (line[strlen(line) - 1] == '\n')
@@ -32,5 +32,5 @@ int main(int argc, char *argv[]) {
 
     fclose(fp);
 
-    return 1;
+    return 0;
 }

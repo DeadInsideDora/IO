@@ -82,8 +82,27 @@ static int read_number(char **first, const char *last)
     return 1;
 }
 
+static int exist_digits(size_t len)
+{
+    size_t i = 0;
+    while (i < len) {
+        if (ibuf[i] >= '0' && ibuf[i] <= '9') {
+            return 1;
+        }
+        ++i;
+    }
+    return 0;
+}
+
+
 static ssize_t my_write(struct file *f, const char __user *buf,  size_t len, loff_t *off)
 {
+char *first;
+char *last;
+int result = 1;
+int pos;
+char temporary[BUF_SIZE];
+
 printk(KERN_INFO "Driver: write()\n");
 
 if(len > BUF_SIZE)
@@ -93,15 +112,16 @@ if (copy_from_user(ibuf, buf, len) != 0) {
 return -EFAULT;
 }
 
-char *first = ibuf;
-const char *last = first + len;
-int result = 1;
+if (!exist_digits(len)) {
+    return len;
+}
+
+first = ibuf;
+last = first + len;
 while (first != last) {
 result *= read_number(&first, last);
 }
 
-int pos;
-char temporary[BUF_SIZE];
 memset(temporary, 0, BUF_SIZE);
 if (resultbuf[0] != '\0') {
 pos = snprintf(temporary, BUF_SIZE - 1, "%s\n%d", resultbuf, result);

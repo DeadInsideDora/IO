@@ -86,8 +86,40 @@ root@cv3635969:~/lab2# hexdump /dev/vramdisk
 
 ### Измерение скорости передачи данных при копировании файлов между разделами созданного виртуального диска
 
-```bash
+#### BlockSize 1M, from vramdisk1 to vramdisk6
 
+```bash
+root@cv3635969:~/lab2# dd if=/dev/vramdisk1 of=/dev/vramdisk6 bs=1M count=12
+12+0 records in
+12+0 records out
+12582912 bytes (13 MB, 12 MiB) copied, 0.344751 s, 36.5 MB/s
+```
+
+#### BlockSize 1M, from vramdisk5 to vramdisk6
+
+```bash
+root@cv3635969:~/lab2# dd if=/dev/vramdisk5 of=/dev/vramdisk6 bs=1M count=12
+12+0 records in
+12+0 records out
+12582912 bytes (13 MB, 12 MiB) copied, 0.279291 s, 45.1 MB/s
+```
+
+#### BlockSize 512B, from vramdisk1 to vramdisk6
+
+```bash
+root@cv3635969:~/lab2# dd if=/dev/vramdisk1 of=/dev/vramdisk6 count=26622
+26622+0 records in
+26622+0 records out
+13630464 bytes (14 MB, 13 MiB) copied, 1.47519 s, 9.2 MB/s
+```
+
+#### BlockSize 512B, from vramdisk5 to vramdisk6
+
+```bash
+root@cv3635969:~/lab2# dd if=/dev/vramdisk5 of=/dev/vramdisk6 count=26622
+26622+0 records in
+26622+0 records out
+13630464 bytes (14 MB, 13 MiB) copied, 1.54288 s, 8.8 MB/s
 ```
 
 ### Измерение скорости передачи данных при копировании файлов между разделами виртуального и реального жестких дисков

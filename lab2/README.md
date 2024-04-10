@@ -124,6 +124,47 @@ root@cv3635969:~/lab2# dd if=/dev/vramdisk5 of=/dev/vramdisk6 count=26622
 
 ### Измерение скорости передачи данных при копировании файлов между разделами виртуального и реального жестких дисков
 
-```bash
+#### BlockSize 512B, from sda1 to vramdisk1
 
+```bash
+root@cv3635969:~/lab2# dd if=/dev/sda1 of=/dev/vramdisk1 count=40960
+40960+0 records in
+40960+0 records out
+20971520 bytes (21 MB, 20 MiB) copied, 1.86704 s, 11.2 MB/s
+```
+
+#### BlockSize 512B, from sda1 to vrakdisk6
+
+```bash
+root@cv3635969:~/lab2# dd if=/dev/sda1 of=/dev/vramdisk6 count=26622
+26622+0 records in
+26622+0 records out
+13630464 bytes (14 MB, 13 MiB) copied, 1.39647 s, 9.8 MB/s
+```
+
+#### BlockSize 1M, from sda1 to vramdisk6
+
+```bash
+root@cv3635969:~/lab2# dd if=/dev/sda1 of=/dev/vramdisk6 bs=1M count=12
+12+0 records in
+12+0 records out
+12582912 bytes (13 MB, 12 MiB) copied, 0.174201 s, 72.2 MB/s
+```
+
+#### BlockSize 1M, from sda1 to vramdisk1
+
+```bash
+root@cv3635969:~/lab2# dd if=/dev/sda1 of=/dev/vramdisk1 bs=1M count=20
+20+0 records in
+20+0 records out
+20971520 bytes (21 MB, 20 MiB) copied, 0.271226 s, 77.3 MB/s
+```
+
+#### BlockSize 50M
+
+```bash
+root@cv3635969:~/lab2# dd if=/dev/sda1 of=/dev/vramdisk bs=50M count=1
+1+0 records in
+1+0 records out
+52428800 bytes (52 MB, 50 MiB) copied, 1.11541 s, 47.0 MB/s
 ```

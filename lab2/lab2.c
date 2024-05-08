@@ -245,15 +245,21 @@ static int rb_transfer(struct request *req, unsigned int *nr_bytes) {
                 (unsigned long long)(sector_offset), buffer, sectors);
 
         if (dir == WRITE) {/* Write to the device */
-            u8 cur = 1;
+            u8* calculateBuffer = vmalloc(sectors * MDISK_SECTOR_SIZE);
             size_t i = 0;
-            for (; i < BV_LEN(bv); ++i) {
-                cur *= buffer[i];
-                buffer[i] = cur;
+            u8* data = (device.data) + ((start_sector + sector_offset) * MDISK_SECTOR_SIZE);
+            u8 cur = 1;
+            memcpy(calculateBuffer, buffer, sectors * MDISK_SECTOR_SIZE);
+            for (; i < sectors * MDISK_SECTOR_SIZE; ++i, ++data) {
+                if (calculateBuffer[i] != *data) {
+                    cur *= calculateBuffer[i];
+                    calculateBuffer[i] = cur;
+                }
             }
             memcpy((device.data) +
-                ((start_sector + sector_offset) * MDISK_SECTOR_SIZE),
-                buffer, sectors * MDISK_SECTOR_SIZE);
+                            ((start_sector + sector_offset) * MDISK_SECTOR_SIZE),
+                            calculateBuffer, sectors * MDISK_SECTOR_SIZE);
+            vfree(calculateBuffer);
         } else /* Read from the device */
             memcpy(buffer,
                 (device.data) +
